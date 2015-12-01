@@ -2,6 +2,13 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
+class Torneo(models.Model):
+	fecha = models.DateField()
+
+	def __str__(self):
+		return "Torneo del {0}".format(self.fecha)
+
+
 class Jugador(models.Model):
 	user = models.OneToOneField(User)
 	is_lta = models.BooleanField("Es LTA?")
@@ -11,8 +18,8 @@ class Jugador(models.Model):
 	def __str__(self):
 		return self.user.username
 
-
 class Partido(models.Model):
+	torneo = models.ForeignKey(Torneo, null=True)
 	jugador_uno = models.OneToOneField(Jugador, related_name="jugador_uno")
 	jugador_dos = models.OneToOneField(Jugador, related_name="jugador_dos")
 	victorias_jugador_uno = models.IntegerField(default=0)
@@ -27,11 +34,3 @@ class Partido(models.Model):
 	def __str__(self):
 		return "{0}:{1} - {2}:{3}".format(self.jugador_uno, self.victorias_jugador_uno,
 		 self.jugador_dos, self.victorias_jugador_dos)
-
-
-class Torneo(models.Model):
-	fecha = models.DateTimeField()
-	partidos = models.ManyToManyField(Partido)
-
-	def __str__(self):
-		return "Torneo del {0}".format(self.fecha)
