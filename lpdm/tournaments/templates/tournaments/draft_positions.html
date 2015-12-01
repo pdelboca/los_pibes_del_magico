@@ -1,0 +1,10 @@
+<h3> Players Positions for Draft </h3>
+{% if players_list %}
+    <ol>
+    {% for player in players_list %}
+        <li>{{ player }}</a></li>
+    {% endfor %}
+    </ol>
+{% else %}
+    <p>No players for this tournament.</p>
+{% endif %}

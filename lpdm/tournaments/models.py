@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 class Tournament(models.Model):
 	date = models.DateField()
 	players = models.ManyToManyField(User)
+	round_count = models.IntegerField(default=0)
 
 	def __str__(self):
 		return "Tournament {0}".format(self.date)
