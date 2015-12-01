@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class Torneo(models.Model):
 	fecha = models.DateField()
+	jugadores = models.ManyToManyField(User)
 
 	def __str__(self):
 		return "Torneo del {0}".format(self.fecha)
@@ -12,7 +13,7 @@ class Torneo(models.Model):
 class Jugador(models.Model):
 	user = models.OneToOneField(User)
 	is_lta = models.BooleanField("Es LTA?")
-	ultimo_lta = models.DateField("Ultimo LTA")
+	ultimo_lta = models.DateField("Ultimo LTA", blank=True, null=True)
 	ltas = models.IntegerField(default=0)
 
 	def __str__(self):

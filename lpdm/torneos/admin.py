@@ -8,6 +8,7 @@ class PartidoInline(admin.TabularInline):
 
 class TorneoAdmin(admin.ModelAdmin):
 	inlines = [PartidoInline]
+	filter_horizontal = ('jugadores',)
 
 
 admin.site.register(Torneo, TorneoAdmin)
