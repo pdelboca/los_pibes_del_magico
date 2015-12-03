@@ -1,0 +1,26 @@
+<h1> Current Round Detail </h1>
+<h3>Details:</h3>
+{% if tournament %}
+    <p>{{tournament}}</p>
+{% endif %}
+{% if current_round %}
+    <p>Round: {{current_round}}</p>
+{% endif %}
+
+<h3>Matches:</h3>
+{%if matches %}
+<ul>
+{% for match in matches %}
+	<li> {{match.player_one}}<b> vs </b>{{match.player_two}} </li>
+{%endfor %}
+</ul>
+{%else%}
+No matches
+{% endif %}
+
+<h3>Bye:</h3>
+{% if free_player %}
+    <p>{{free_player}}</p>
+{% else %}
+	<p>No Free Player</p>
+{% endif %}

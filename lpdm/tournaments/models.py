@@ -10,6 +10,7 @@ class Player(models.Model):
 	is_lta = models.BooleanField("Is LTA?")
 	last_lta = models.DateField("Last LTA", blank=True, null=True)
 	ltas = models.IntegerField(default=0)
+	bye_times = models.IntegerField(default=0)
 
 	def __str__(self):
 		return self.user.username
@@ -17,8 +18,9 @@ class Player(models.Model):
 
 class Tournament(models.Model):
 	date = models.DateField()
-	players = models.ManyToManyField(User)
+	players = models.ManyToManyField(Player)
 	rounds = models.IntegerField(default=1)
+	current_round = models.IntegerField(default=0)
 
 
 	def __str__(self):
@@ -37,9 +39,9 @@ class Match(models.Model):
 	player_two = models.OneToOneField(Player, related_name="player_two")
 	victories_player_one = models.IntegerField(default=0)
 	victories_player_two = models.IntegerField(default=0)
-	winner = models.OneToOneField(Player, related_name="winner")
+	winner = models.OneToOneField(Player, blank=True, null=True, related_name="winner")
 	result = models.CharField(max_length=1, default=4, choices=RESULT_CHOICES)
-	finished = models.BooleanField()
+	finished = models.BooleanField(default=False)
 	def __str__(self):
-		return "{0}:{1} - {2}:{3}".format(self.Player_uno, self.victories_player_one,
+		return "{0}:{1} - {2}:{3}".format(self.player_one, self.victories_player_one,
 		 self.player_two, self.victories_player_two)
