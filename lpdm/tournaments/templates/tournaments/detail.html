@@ -1,0 +1,15 @@
+<h3> Tournament Detail <h3>
+<h5>Date:</h5>
+{% if tournament %}
+    <p>{{tournament}}</p>
+<h5>Players:</h5>
+<ul>
+{% for player in tournament.players.all %}
+	<li>{{player}}</li>
+{%endfor %}
+</ul>
+<h5>Rounds:</h5>
+    <p>{{tournament.rounds}}</p>
+{% else %}
+    <p>No Tournament is available.</p>
+{% endif %}
